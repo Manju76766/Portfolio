@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes diamond-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shine-pulse {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.shine-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(
+    135deg,
+    var(--shine-color-1, #FF007F),
+    var(--shine-color-2, #39FF14),
+    var(--shine-color-3, #00FFFF),
+    var(--shine-color-1, #FF007F)
+  );
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: shine-pulse 3s ease infinite;
+  pointer-events: none;
+  z-index: 20;
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-bg text-text scroll-smooth leading-normal;
+    overflow-x: clip;
+  }
+}
+
+@layer utilities {
+  .btn-pill {
+    @apply inline-flex items-center gap-2.5 text-[14px] font-sora font-medium py-2.5 px-2.5 pl-5 rounded-full no-underline transition-transform duration-200 cursor-pointer;
+  }
+  .btn-pill:hover {
+    @apply scale-[1.03];
+  }
+  .btn-pill:hover .arrow-circle {
+    @apply rotate-45;
+  }
+  .btn-dark {
+    @apply bg-accent-dark text-white;
+  }
+  .btn-dark .arrow-circle {
+    @apply bg-accent text-accent-dark;
+  }
+  .btn-lime {
+    @apply bg-accent text-text font-semibold pl-6;
+  }
+  .btn-lime .arrow-circle {
+    @apply bg-accent-dark text-white;
+  }
+  .arrow-circle {
+    @apply w-8 h-8 rounded-full flex items-center justify-center text-base transition-transform duration-200;
+  }
+
+  .pill-label {
+    @apply inline-flex items-center gap-2 border-[1.5px] border-[#CCC] rounded-full py-1.5 px-4 text-[13px] font-medium text-text mb-6;
+  }
+  .pill-label::before {
+    content: '■';
+    font-size: 10px;
+  }
+  
+  .heading-black {
+    @apply font-[800] text-text font-sora;
+  }
+  .heading-gray {
+    @apply font-[400] text-muted font-sora;
+  }
+}
